@@ -1,0 +1,23 @@
+<img src="{{album.album_kapagi}}">
+
+<h1> {{album.album_adi}} </h1>
+<h3> {{album.sanatci}} </h3>
+
+<h2> Albümdeki Şarkılar: </h2>
+
+{% if hata_mesaji %}
+	<p><strong>{{ hata_mesaji}} </strong></p> 
+{% endif %}	
+
+<form action="{% url 'muzik:favori' album.id %}" method="post">
+	{% csrf_token %}
+	{% for siradaki in album.sarkilar_set.all %}
+		<input type="radio" id="sarki{{ forloop.counter }}" name="sarki" value="{{siradaki.id}}"/>
+		<label for="sarkilar{{ forloop.counter }}">{{ siradaki.sarki_adi}}
+		{% if siradaki.favori_mi  %}
+		<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAclBMVEX////toQDomgD7uADwpgDtogDyqgD1rgD3sQDqnQDkkgDmlQD69e3ZzLjd1Mf4uBHw48r5z2f47dH6+PTtzp/479/x0Z758t/svXTejArqv3rwtDvgjQDklg7vwGz0z4rzx27yvkzztSbrqzX75Kn9vAD5mvbeAAAAkElEQVQYlW2NSRKEIAxFISASRFFp2wlnvf8VG0o2VPXbJPy8BEJe+p6kNE36bo1pU4GxRLkNe8z99nrbj1NKxpg5j33TxF5AucillLnIcLZeuTDjQuRCcDrrsGRnn3gyGuaBDhAppYhd/MMWAIAARRRIrVQRUHUMPs4t67o4943BME7+up7GIQZl9daqJH/4Abv4B0/mOQi4AAAAAElFTkSuQmCC">
+		{% endif %}
+	</label><br>	
+	{% endfor %}
+	<input type="submit" value="Gönder"/>
+</form>

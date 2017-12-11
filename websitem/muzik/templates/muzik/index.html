@@ -1,0 +1,13 @@
+<h1> Album Listesi </h1>
+{% if tum_albumler %}
+<h3>Benim tum albumlerim:</h3>
+<ul>
+	{% for siradaki in tum_albumler %}
+	<li><a href="{% url 'muzik:detay' siradaki.id %}">{{siradaki.album_adi}}</a></li>
+	{% endfor %}
+
+</ul>
+{% else %}
+	<h3>Album Bulunamadi</h3>
+	<h3>Suanda hicbir album bulunamamaktadir.</h3>
+{% endif %}	
